@@ -1,12 +1,9 @@
 pipeline {
     agent any
-
     tools {
     maven 'Maven 3'
 }
-
-
-    stages {
+stages {
         stage('Checkout') {
             steps {
                 git 'https://github.com/maruti123882/devops-demo-project.git'
