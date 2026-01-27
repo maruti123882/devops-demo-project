@@ -1,14 +1,16 @@
 pipeline {
     agent any
+
     tools {
-    maven 'Maven 3'
-}
-stages {
+        maven 'Maven 3'
+    }
+
+    stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main',
-    url: 'https://github.com/maruti123882/devops-demo-project.git'
-
+                    url: 'https://github.com/maruti123882/devops-demo-project.git'
             }
         }
 
@@ -26,7 +28,10 @@ stages {
 
         stage('Deploy') {
             steps {
-                sh 'docker run -d -p 8081:8080 devops-app:1.0'
+                sh '''
+                  docker rm -f devops-app || true
+                  docker run -d --name devops-app -p 8081:8080 devops-app:1.0
+                '''
             }
         }
     }
